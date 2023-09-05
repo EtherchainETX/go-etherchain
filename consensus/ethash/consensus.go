@@ -46,7 +46,6 @@ var (
 	allowedFutureBlockTimeSeconds = int64(15)         // Max seconds from current time allowed for blocks, before they're considered future blocks
 
 	DevelopmentFundAddress = common.HexToAddress("0x1C5CbbC0B2FD4802E19FC03b48E82a8fF819f706")
-	StakingFundAddress = common.HexToAddress("0x7624B34254662DA19C7C875029BEc1638E002BB5")
 
 	// calcDifficultyEip5133 is the difficulty adjustment algorithm as specified by EIP 5133.
 	// It offsets the bomb a total of 11.4M blocks.
@@ -665,9 +664,8 @@ var (
 func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header *types.Header, uncles []*types.Header) {
 	// Select the correct block reward based on chain progression
 	
-	MinerBlockReward := big.NewInt(5e+18)
+	MinerBlockReward := big.NewInt(6e+18)
 	DevelopmentBlockReward := big.NewInt(1e+18)
-	StakingBlockReward := big.NewInt(1e+18)
 	
 	blockReward := MinerBlockReward
 	
@@ -688,5 +686,4 @@ func accumulateRewards(config *params.ChainConfig, state *state.StateDB, header 
 	
 	state.AddBalance(header.Coinbase, reward)
 	state.AddBalance(DevelopmentFundAddress, DevelopmentBlockReward)
-	state.AddBalance(StakingFundAddress, StakingBlockReward)
 }
